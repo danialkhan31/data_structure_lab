@@ -1,23 +1,25 @@
 #include <iostream>
 #include <string>
+#include <cstddef>
 using namespace std;
 
 struct Node {
     string patientId;
     Node* next;
-    Node(const string& id) : patientId(id), next(nullptr) {}
+    Node(const string& id) : patientId(id), next(NULL) {}
 };
 
 class PatientQueue {
     Node* head;
     Node* tail;
 public:
-    PatientQueue() : head(nullptr), tail(nullptr) {}
+    PatientQueue() : head(NULL), tail(NULL) {}
 
     // 1 & 2. Add a patient (ID) at the end
     void addPatient(const string& id) {
         Node* newNode = new Node(id);
-        if (head == nullptr) {
+        if (head == NULL
+) {
             head = tail = newNode;
             return;
         }
@@ -27,14 +29,17 @@ public:
 
     // 3 & 5. Display all waiting patients
     void display() const {
-        if (head == nullptr) {
+        if (head == NULL
+) {
             cout << "No patients waiting.\n";
             return;
         }
         Node* temp = head;
-        while (temp != nullptr) {
+        while (temp != NULL
+) {
             cout << temp->patientId;
-            if (temp->next != nullptr) cout << " -> ";
+            if (temp->next != NULL
+    ) cout << " -> ";
             temp = temp->next;
         }
         cout << endl;
@@ -42,21 +47,26 @@ public:
 
     // 4. Remove the first patient (doctor attends)
     void servePatient() {
-        if (head == nullptr) {
+        if (head == NULL
+) {
             cout << "No patients to serve.\n";
             return;
         }
         Node* temp = head;
         cout << "Patient " << temp->patientId << " is being served.\n";
         head = head->next;
-        if (head == nullptr) tail = nullptr;
+        if (head == NULL
+) tail = NULL
+;
         delete temp;
     }
 
-    bool isEmpty() const { return head == nullptr; }
+    bool isEmpty() const { return head == NULL
+; }
 
     ~PatientQueue() {
-        while (head != nullptr) {
+        while (head != NULL
+) {
             Node* temp = head;
             head = head->next;
             delete temp;

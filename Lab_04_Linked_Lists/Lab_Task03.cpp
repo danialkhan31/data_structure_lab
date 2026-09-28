@@ -5,37 +5,37 @@ using namespace std;
 struct Node {
     string productId;
     Node* next;
-    Node(const string& id) : productId(id), next(nullptr) {}
+    Node(const string& id) : productId(id), next(NULL) {}
 };
 
 class ShoppingCart {
     Node* head;
 public:
-    ShoppingCart() : head(nullptr) {}
+    ShoppingCart() : head(NULL) {}
 
     // 1 & 2. Add a product (ID) to the cart
     void addProduct(const string& id) {
         Node* newNode = new Node(id);
-        if (head == nullptr) {
+        if (head == NULL) {
             head = newNode;
             return;
         }
         Node* temp = head;
-        while (temp->next != nullptr)
+        while (temp->next != NULL)
             temp = temp->next;
         temp->next = newNode;
     }
 
     // 3 & 5. Display all products in the cart
     void display() const {
-        if (head == nullptr) {
+        if (head == NULL) {
             cout << "Cart is empty.\n";
             return;
         }
         Node* temp = head;
-        while (temp != nullptr) {
+        while (temp != NULL) {
             cout << temp->productId;
-            if (temp->next != nullptr) cout << " -> ";
+            if (temp->next != NULL) cout << " -> ";
             temp = temp->next;
         }
         cout << endl;
@@ -43,7 +43,7 @@ public:
 
     // 4. Remove a product by ID
     bool removeProduct(const string& id) {
-        if (head == nullptr) return false;
+        if (head == NULL) return false;
 
         // Case 1: product is at the head
         if (head->productId == id) {
@@ -55,10 +55,10 @@ public:
 
         // Case 2: product is in the middle or at the end
         Node* curr = head;
-        while (curr->next != nullptr && curr->next->productId != id)
+        while (curr->next != NULL && curr->next->productId != id)
             curr = curr->next;
 
-        if (curr->next == nullptr) return false;  // not found
+        if (curr->next == NULL) return false;  // not found
 
         Node* temp = curr->next;
         curr->next = temp->next;
@@ -67,7 +67,7 @@ public:
     }
 
     ~ShoppingCart() {
-        while (head != nullptr) {
+        while (head != NULL) {
             Node* temp = head;
             head = head->next;
             delete temp;

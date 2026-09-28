@@ -4,38 +4,38 @@ using namespace std;
 struct Node {
     int rollNo;
     Node* next;
-    Node(int r) : rollNo(r), next(nullptr) {}
+    Node(int r) : rollNo(r), next(NULL) {}
 };
 
 class StudentList {
     Node* head;
 public:
-    StudentList() : head(nullptr) {}
+    StudentList() : head(NULL) {}
 
     // 1 & 2. Add a student (roll number) at the end
     void addStudent(int rollNo) {
         Node* newNode = new Node(rollNo);
-        if (head == nullptr) {
+        if (head == NULL) {
             head = newNode;
             return;
         }
         Node* temp = head;
-        while (temp->next != nullptr)
+        while (temp->next != NULL)
             temp = temp->next;
         temp->next = newNode;
     }
 
     // 3. Display all registered students
     void display() const {
-        if (head == nullptr) {
+        if (head == NULL) {
             cout << "No students registered.\n";
             return;
         }
         cout << "Registered Students:\n";
         Node* temp = head;
-        while (temp != nullptr) {
+        while (temp != NULL) {
             cout << temp->rollNo;
-            if (temp->next != nullptr) cout << " -> ";
+            if (temp->next != NULL) cout << " -> ";
             temp = temp->next;
         }
         cout << endl;
@@ -44,7 +44,7 @@ public:
     // 4. Search by roll number
     bool search(int rollNo) const {
         Node* temp = head;
-        while (temp != nullptr) {
+        while (temp != NULL) {
             if (temp->rollNo == rollNo)
                 return true;
             temp = temp->next;
@@ -53,7 +53,7 @@ public:
     }
 
     ~StudentList() {
-        while (head != nullptr) {
+        while (head != NULL) {
             Node* temp = head;
             head = head->next;
             delete temp;
