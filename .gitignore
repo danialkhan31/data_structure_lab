@@ -1,0 +1,45 @@
+
+# Compiled executable files
+*.exe
+*.out
+*.o
+*.obj
+*.a
+*.so
+*.dll
+*.class
+
+# Debugging files
+*.pdb
+*.ilk
+*.dSYM/
+
+# Visual Studio Code
+.vscode/
+
+# Visual Studio
+.vs/
+*.sln
+*.vcxproj
+*.vcxproj.user
+
+# Code::Blocks
+*.cbp
+*.layout
+bin/
+obj/
+
+# CLion
+.idea/
+cmake-build-*/
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*~
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
