@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string>
 #include <queue>
@@ -33,19 +34,19 @@ private:
         StudentNode* current = root;
 
         int mask = 1;
-        while (mask <= index)
-            mask <<= 1;
+        while (mask <= index / 2)
+            mask *= 2;
 
-        mask >>= 1; // Skip the first bit
+        mask /= 2;
 
-        while (mask > 0 && current != NULL)
+        while (mask > 0)
         {
             if (index & mask)
                 current = current->right;
             else
                 current = current->left;
 
-            mask >>= 1;
+            mask /= 2;
         }
 
         return current;
@@ -64,16 +65,18 @@ private:
         {
             int parent = index / 2;
 
-            StudentNode* childNode = getNode(index);
+            StudentNode* child = getNode(index);
             StudentNode* parentNode = getNode(parent);
 
-            if (childNode->marks > parentNode->marks)
+            if (child->marks > parentNode->marks)
             {
-                swapData(childNode, parentNode);
+                swapData(child, parentNode);
                 index = parent;
             }
             else
+            {
                 break;
+            }
         }
     }
 
@@ -122,7 +125,6 @@ public:
     void insert(string name, int rollNo, int marks)
     {
         StudentNode* newNode = new StudentNode(name, rollNo, marks);
-
         size++;
 
         if (size == 1)
@@ -152,7 +154,7 @@ public:
         queue<StudentNode*> q;
         q.push(root);
 
-        cout << "\nStudents in Level Order:\n";
+        cout << "\nLevel Order Traversal:\n";
 
         while (!q.empty())
         {
@@ -213,19 +215,19 @@ int main()
 {
     StudentHeap heap;
 
-    heap.insert("Dani", 101, 85);
+    heap.insert("Ali", 101, 85);
     heap.insert("Ahmed", 102, 92);
     heap.insert("Sara", 103, 78);
     heap.insert("Ayesha", 104, 96);
     heap.insert("Usman", 105, 88);
     heap.insert("Zain", 106, 90);
 
-    cout << "Max Heap Before Deletion:";
+    cout << "Student Max Heap Before Deletion:";
     heap.display();
 
     heap.deleteHighest();
 
-    cout << "\nMax Heap After Deletion:";
+    cout << "\nStudent Max Heap After Deletion:";
     heap.display();
 
     return 0;

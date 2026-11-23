@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string>
 #include <queue>
@@ -33,19 +34,19 @@ private:
         PatientNode* current = root;
 
         int mask = 1;
-        while (mask <= index)
-            mask <<= 1;
+        while (mask <= index / 2)
+            mask *= 2;
 
-        mask >>= 1;
+        mask /= 2;
 
-        while (mask > 0 && current != NULL)
+        while (mask > 0)
         {
             if (index & mask)
                 current = current->right;
             else
                 current = current->left;
 
-            mask >>= 1;
+            mask /= 2;
         }
 
         return current;
@@ -64,13 +65,18 @@ private:
         {
             int parent = index / 2;
 
-            if (getNode(index)->priority > getNode(parent)->priority)
+            PatientNode* child = getNode(index);
+            PatientNode* parentNode = getNode(parent);
+
+            if (child->priority > parentNode->priority)
             {
-                swapData(getNode(index), getNode(parent));
+                swapData(child, parentNode);
                 index = parent;
             }
             else
+            {
                 break;
+            }
         }
     }
 
@@ -79,16 +85,27 @@ private:
         while (true)
         {
             int largest = index;
-            int left = 2 * index;
-            int right = 2 * index + 1;
+            int leftIndex = 2 * index;
+            int rightIndex = 2 * index + 1;
 
-            if (left <= size &&
-                getNode(left)->priority > getNode(largest)->priority)
-                largest = left;
+            PatientNode* current = getNode(index);
 
-            if (right <= size &&
-                getNode(right)->priority > getNode(largest)->priority)
-                largest = right;
+            if (leftIndex <= size)
+            {
+                PatientNode* leftNode = getNode(leftIndex);
+
+                if (leftNode->priority > current->priority)
+                    largest = leftIndex;
+            }
+
+            if (rightIndex <= size)
+            {
+                PatientNode* rightNode = getNode(rightIndex);
+                PatientNode* largestNode = getNode(largest);
+
+                if (rightNode->priority > largestNode->priority)
+                    largest = rightIndex;
+            }
 
             if (largest == index)
                 break;
@@ -105,10 +122,9 @@ public:
         size = 0;
     }
 
-    void insert(string name, int id, int priority)
+    void insert(string name, int patientID, int priority)
     {
-        PatientNode* newNode = new PatientNode(name, id, priority);
-
+        PatientNode* newNode = new PatientNode(name, patientID, priority);
         size++;
 
         if (size == 1)
@@ -195,7 +211,7 @@ public:
 
         if (root != NULL)
         {
-            cout << "\nNext Patient:\n";
+            cout << "\nNext Patient to be Treated:\n";
             cout << "Name: " << root->name
                  << " | ID: " << root->patientID
                  << " | Priority: " << root->priority << endl;
